@@ -4,7 +4,9 @@ const initialState = {
   status: '',
   loginRes: {},
   signupRes: {},
+  users: [],
   error: '',
+  token: ''
 };
 
 const AuthSlice = createSlice({
@@ -17,6 +19,8 @@ const AuthSlice = createSlice({
     },
     loginSuccess(state, action) {
       state.loginRes = action.payload.data;
+      // console.log('payload.data -- ',payload.data);
+      state.token == action.payload?.id;
       state.status = action.type;
     },
     loginFailure(state, action) {
@@ -36,6 +40,12 @@ const AuthSlice = createSlice({
       state.error = action.error;
       state.status = action.type;
     },
+
+    /* Add New User */
+    addNewUser(state, action) {
+      state.status = action.type;
+      state.users.push(action.payload);
+    },
   },
 });
 
@@ -49,6 +59,9 @@ export const {
   signupFailure,
   signupSuccess,
   signupRequest,
+
+  /* Add New User */
+  addNewUser,
 } = AuthSlice.actions;
 
 export default AuthSlice.reducer;
